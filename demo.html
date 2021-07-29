@@ -1,0 +1,101 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/demo.css">
+    <script src="./js/demo.js"></script>
+    <script src="./js/cookie.js"></script>
+</head>
+
+<body>
+    <div>
+        <button id="sign">注册</button>
+        <button id="login">登录</button>
+    </div>
+    <form action="" id="sign_" onsubmit="return checkeFrom()">
+        <p><span>用户名：</span><input type="text" id="s_name"></p>
+        <p id="name_holder"></p>
+        <p><span>密码：</span><input type="password" id="s_pwd"></p>
+        <p id="pwd_holder"></p>
+        <p><span>请确认密码：</span><input type="password" id="s_pwd1"></p>
+        <p id="pwd1_holder"></p>
+        <p><span>邮箱：</span><input type="text" id="s_pwd2"></p>
+        <p><span>昵称：</span><input type="text" id="s_pwd3"></p>
+
+        <input type="submit" id="register" value="点击注册">
+    </form>
+    <form action="" id="login_" onsubmit="return checkeFrom_()">
+        <p><span>用&emsp;户&emsp;名：</span><input type="text" id="l_name"></p>
+        <p id="lname_holder"></p>
+        <p><span>密&emsp;&emsp;&emsp;码：</span><input type="password" id="l_pwd"></p>
+        <p id="lpwd_holder"></p>
+        <div>记住密码：<input type="checkbox" id="l_remember"></div>
+        <div>自动登录：<input type="checkbox" id="l_automatic"></div>
+        <input type="submit" id="loginID" value="点击登录">
+    </form>
+</body>
+<script>
+    function checkeFrom(){
+        if (s_name.onblur() == false || s_pwd.onblur() == false || s_pwd1.onblur() == false) {
+            return false;
+        }
+        var Data = 'act=reg&user=' + s_name.value + '&pass=' + s_pwd.value;
+        var oAjax = new XMLHttpRequest() || new ActiveXObject('Microsoft.XMLHTTP');
+        oAjax.open('post', 'http://127.0.0.1:3001/user', true);
+        oAjax.send(Data);
+        oAjax.onreadystatechange = function () {
+            if (oAjax.readyState == 4) {
+                if (oAjax.status == 200) {
+                    alert(JSON.parse(oAjax.responseText).msg);
+                }
+            }
+        }
+    }
+    function checkeFrom_(){//
+        if (l_name.onblur() == false || l_pwd.onblur() == false) {
+            return false;
+        }
+        var Data = 'act=login&user=' + l_name.value + '&pass=' + l_pwd.value;
+        var oAjax = new XMLHttpRequest() || new ActiveXObject('Microsoft.XMLHTTP');
+        oAjax.open('post', 'http://127.0.0.1:3001/user', true);
+        oAjax.send(Data);
+        oAjax.onreadystatechange = function () {
+            if (oAjax.readyState == 4) {
+                if (oAjax.status == 200) {
+                   
+                    if (JSON.parse(oAjax.responseText).ok == false) {
+                        console.log(1);
+                        alert(JSON.parse(oAjax.responseText).msg);
+                        login.onclick(); 
+                    } else {
+                        console.log(2);
+                        alert(JSON.parse(oAjax.responseText).msg);
+                    }
+                }
+            }
+        }
+        if (true) {
+            if (l_remember.checked == true) {
+                myCookie.setCookie('lname', l_name.value, 1);
+                myCookie.setCookie('lpwd', l_pwd.value, 1);
+                myCookie.setCookie('lremember', l_remember.checked, 1);
+                if (l_automatic.checked == true) {
+                    myCookie.setCookie('lautomatic', l_automatic.checked, 1);
+                } else {
+                    myCookie.removeCookie('lautomatic');
+                }
+            } else {
+                myCookie.removeCookie('lname');
+                myCookie.removeCookie('lpwd');
+                myCookie.removeCookie('lremember');
+            }
+        }
+    }
+</script>
+</html>

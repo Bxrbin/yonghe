@@ -1,0 +1,77 @@
+body>div {
+    margin: auto;
+    margin-top: 200px;
+    width: 50%;
+    overflow: hidden;
+    width: 50%;
+}
+
+body>div>button {
+    background-color: aquamarine;
+    width: 30%;
+    float: left;
+    font-size: 20px;
+}
+
+body {
+    position: relative;
+}
+
+form {
+    display: none;
+    width: 30%;
+    border: black solid 1px;
+    position: absolute;
+    background-color: rgb(140, 220, 253);
+
+}
+
+form>input {
+    width: 50%;
+    font-size: 20px;
+    margin: 30px 25%;
+}
+
+#sign_,
+#login_ {
+    float: left;
+    margin-left: 25%;
+}
+
+p {
+    text-align: center;
+    font-size: 30px;
+    width: 100%;
+    margin: 10px 0;
+}
+
+span {
+    display: inline-block;
+    width: 40%;
+    text-align: center;
+}
+
+input {
+    font-size: 20px;
+}
+
+form>p:nth-child(2n) {
+    height: 40px;
+}
+
+form>div:nth-child(5) {
+    float: left;
+    margin-left: 10%;
+    font-size: 25px;
+}
+
+form>div:nth-child(6) {
+    margin-right: 10%;
+    float: right;
+    font-size: 20px;
+}
+
+form>div>input {
+    width: 20px;
+    height: 20px;
+}
